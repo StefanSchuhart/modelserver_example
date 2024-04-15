@@ -40,6 +40,7 @@ copier update . --trust
 ### Folders and files
 
 **Folders**:
+
 - `assets`: images
 - `data`: local data
 - `reports`: interactive reports
@@ -75,7 +76,7 @@ copier update . --trust
 
 ```bash
 # create a venv
-mamba create -p ./.venv python=3.11
+mamba create -p ./.venv -f environment.yaml
 ```
 
 ```bash
