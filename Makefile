@@ -32,7 +32,11 @@ install:
 	mamba activate ./.venv
 	poetry install
 
-run-local:
+update-plugin:
+	poetry install
+
+run-local: update-plugin
+	pygeoapi openapi generate ${PYGEOAPI_CONFIG} --output-file ${PYGEOAPI_OPENAPI}
 	pygeoapi serve --flask
 
 run-local-container:
