@@ -25,7 +25,29 @@ on -d '{"inputs": {"name":"Me", "message": "Hi there"}}' -H "Content-Type: appli
 
 ## Developing a pygeoapi plugin and registering it with pygeoapi
 
-TODO
+* create a folder inside [src/example_ogcapi_processes](src/example_ogcapi_processes), e.g.: `my_cool_process`
+* create an `__init__.py` file inside that folder
+* create one or more python files that contains the logic of your process
+* create a class that inherits from `pygeoapi.process.base.BaseProcessor`
+* that class should parse dict/json as input parameters
+* add a `PROCESS_METADATA` variable of type `dict` that contains process metadata and describes input and output parameters
+    * example: [src/example_ogcapi_processes/sqrt_processor.process.py](src/example_ogcapi_processes/sqrt_processor.process.py)
+* install the package or update the installation
+* add an entry to `pygeoapi-config.yml` under `resources`:
+
+```yaml
+resources:
+  squareroot:
+    # name may refer to an external Python class, that is loaded by pygeoapi at runtime
+    processor:
+        name: example_ogcapi_processes.sqrt_processor.process.SlowSqrtProcessor
+    type: process
+```
+
+## using processes
+When entering `make run-local` on the commandline, an openapi document is created based on `pygeoapi-config.yml`.
+
+Browse to http://localhost:5000/openapi and try out your process.
 
 ## Using the templating engine copier
 
