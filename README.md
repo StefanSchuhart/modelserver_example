@@ -15,6 +15,13 @@ make install
 # every time the service has stopped or must be restartet
 make run-local
 ```
+## Hello World example process usage
+
+```bash
+curl -XPOST http://localhost:5000/processes/hello-world/execution?f=js
+on -d '{"inputs": {"name":"Me", "message": "Hi there"}}' -H "Content-Type: application/json"
+```
+
 
 ## Developing a pygeoapi plugin and registering it with pygeoapi
 
