@@ -7,7 +7,7 @@ name = "example-ogcapi-processes"
 description = "just some exmaples"
 authors = [{name = "StefanSchuhart", email = "stefan.schuhart@gv.hamburg.de"}]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 keywords = []
 dynamic = ["version"]
 classifiers = [
