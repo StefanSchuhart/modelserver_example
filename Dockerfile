@@ -1,10 +1,12 @@
-ARG $MAMBA_USER=mambauser
+ARG USERNAME=pythonuser
 
 FROM python:3.11-bookworm as base
 
-ENV CACHE_DIR=/app/cache
+ARG USERNAME 
 
-WORKDIR /app
+ENV CACHE_DIR=/home/$USERNAME/cache
+
+WORKDIR /home/$USERNAME
 
 RUN --mount=type=cache,target=$CACHE_DIR apt-get update && apt-get install -y --no-install-recommends \
     git \
@@ -14,7 +16,7 @@ RUN --mount=type=cache,target=$CACHE_DIR apt-get update && apt-get install -y --
 ENV POETRY_NO_INTERACTION=1 \
     POETRY_VIRTUALENVS_IN_PROJECT=1 \
     POETRY_VIRTUALENVS_CREATE=1 \
-    POETRY_CACHE_DIR=/app/poetry_cache
+    POETRY_CACHE_DIR=/home/$USERNAME/poetry_cache
 
 COPY pyproject.toml poetry.lock ./
 RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without=dev --no-root
@@ -22,12 +24,12 @@ RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without=dev --n
 COPY src ./src
 RUN touch README.md \
     && poetry build \
-    && /app/.venv/bin/python -m pip install dist/*.whl --no-deps
+    && /home/$USERNAME/.venv/bin/python -m pip install dist/*.whl --no-deps
 
 FROM python:3.11-slim-bookworm as runtime
 
+ARG USERNAME
 ARG USER_UID=1000
-ARG USERNAME=pythonuser
 ARG USER_GID=2000
 ARG SOURCE_COMMIT
 
@@ -40,7 +42,7 @@ RUN groupadd --gid $USER_GID $USERNAME && \
 
 WORKDIR /home/$USERNAME
 
-ENV VIRTUAL_ENV=/app/.venv \
+ENV VIRTUAL_ENV=/home/$USERNAME/.venv \
     PATH="/home/$USERNAME/.venv/bin:$PATH"
 
 COPY --from=base \
@@ -48,4 +50,4 @@ COPY --from=base \
     --chown=$USERNAME:$USERNAME \
     ${VIRTUAL_ENV} ./.venv
 
-ENTRYPOINT [".venv/python", "-u"]
+# ENTRYPOINT [".venv/python", "-u"]
