@@ -6,13 +6,17 @@ services:
   app:
     image: ${CONTAINER_REGISTRY}/analytics/${IMAGE_NAME}:${IMAGE_TAG}
     restart: "unless-stopped"
-
+    environment:
+      PYGEOAPI_SERVER_PORT: ${PYGEOAPI_SERVER_PORT}
+      PYGEOAPI_CONFIG: /home/pythonuser/pygeoapi-config.yml
+      PYGEOAPI_OPENAPI: /home/pythonuser/pygeoapi-openapi.yml
+      PYGEOAPI_SERVER_HOST: localhost
+    volumes:
+      - ${PYGEOAPI_CONFIG}:/home/pythonuser/pygeoapi-config.yml
+      - ${PYGEOAPI_OPENAPI}:/home/pythonuser/pygeoapi-openapi.yml
     ports:
       - ${PYGEOAPI_SERVER_PORT_CONTAINER}:${PYGEOAPI_SERVER_PORT}
     command: [
-      'pygeoapi', 'openapi', 'generate',
-      '${PYGEOAPI_CONFIG}',
-      '--output-file', '${PYGEOAPI_OPENAPI}',
-      '&',
-      pygeoapi serve --flask
+      '/bin/bash', '-c',
+      'pygeoapi openapi generate /home/pythonuser/pygeoapi-config.yml --output-file /home/pythonuser/pygeoapi-openapi.yml && pygeoapi serve --flask'
     ]
