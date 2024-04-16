@@ -4,14 +4,12 @@ secrets:
 
 services:
   app:
-    image: lgvudh.azurecr.io/analytics/
-    secrets:
-      - MY_SECRET1
+    image: lgvudh.azurecr.io/analytics/ogcapi_processes_example:0.0.1
     restart: "unless_stopped"
-    environment:
-      MY_ENV_VAR1: example
+    # environment:
+    #   MY_ENV_VAR1: example
     ports:
-      - 12345:12345
+      - 12345:${PYGEOAPI_SERVER_PORT}
 
   pygeoapi_db:
     image: mongodb
