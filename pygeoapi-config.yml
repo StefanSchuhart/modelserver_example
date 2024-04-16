@@ -32,7 +32,7 @@ server:
         host: 0.0.0.0
         port: ${PYGEOAPI_SERVER_PORT}
     # url has to be host:port reflecting address outside of docker!
-    url: http://${PYGEOAPI_SERVER_HOST}:${PYGEOAPI_SERVER_PORT}
+    url: http://${PYGEOAPI_SERVER_HOST}:${PYGEOAPI_SERVER_PORT_CONTAINER}
     mimetype: application/json; charset=UTF-8
     encoding: utf-8
     gzip: false
