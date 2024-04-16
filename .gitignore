@@ -1,5 +1,5 @@
 # Project related
-pygeoapi-openapi.y?ml
+pygeoapi-openapi.y*ml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
