@@ -6,6 +6,13 @@ services:
   app:
     image: ${CONTAINER_REGISTRY}/analytics/${IMAGE_NAME}:${IMAGE_TAG}
     restart: "unless-stopped"
+
     ports:
       - ${PYGEOAPI_SERVER_PORT_CONTAINER}:${PYGEOAPI_SERVER_PORT}
-    command: ['src/app.py']
+    command: [
+      'pygeoapi', 'openapi', 'generate',
+      '${PYGEOAPI_CONFIG}',
+      '--output-file', '${PYGEOAPI_OPENAPI}',
+      '&',
+      pygeoapi serve --flask
+    ]
