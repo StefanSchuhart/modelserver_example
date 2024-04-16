@@ -8,6 +8,7 @@ services:
     restart: "unless-stopped"
     environment:
       PYGEOAPI_SERVER_PORT: ${PYGEOAPI_SERVER_PORT}
+      PYGEOAPI_SERVER_PORT_CONTAINER: ${PYGEOAPI_SERVER_PORT_CONTAINER}
       PYGEOAPI_CONFIG: /home/pythonuser/pygeoapi-config.yml
       PYGEOAPI_OPENAPI: /home/pythonuser/pygeoapi-openapi.yml
       PYGEOAPI_SERVER_HOST: localhost
