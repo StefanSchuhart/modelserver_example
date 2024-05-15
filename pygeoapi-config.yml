@@ -310,3 +310,8 @@ resources:
       processor:
         name: example_ogcapi_processes.sqrt_processor.process.SlowSqrtProcessor
       type: process
+
+    hello-geo-world:
+        type: process
+        processor:
+            name: example_ogcapi_processes.hello_geoworld.process.HelloGeoWorldProcessor
