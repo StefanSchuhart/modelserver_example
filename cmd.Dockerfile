@@ -50,6 +50,7 @@ COPY --from=base \
     --chown=$USERNAME:$USERNAME \
     ${VIRTUAL_ENV} ./.venv
 
-COPY hello_geoworld.py ./hello_geoworld.py
+COPY ./hello_geoworld.py ./hello_geoworld.py
 
-ENTRYPOINT [".venv/python", "-u"]
+ENTRYPOINT [".venv/bin/python", "-u"]
+CMD ["hello_geoworld.py", "--data", "{\"inputs\": {\"name\": \"Me\"}}"]

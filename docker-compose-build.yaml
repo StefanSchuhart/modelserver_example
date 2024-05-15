@@ -8,3 +8,11 @@ services:
       dockerfile: Dockerfile
       args:
         SOURCE_COMMIT:
+
+  commandline-app:
+    image: ${CONTAINER_REGISTRY}/analytics/${IMAGE_NAME}-cmd:${IMAGE_TAG}
+    build:
+      context: .
+      dockerfile: cmd.Dockerfile
+      args:
+        SOURCE_COMMIT:
