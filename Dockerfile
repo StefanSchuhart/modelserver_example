@@ -11,7 +11,7 @@ WORKDIR /home/$USERNAME
 RUN --mount=type=cache,target=$CACHE_DIR apt-get update && apt-get install -y --no-install-recommends \
     git \
     && rm -rf /var/lib/apt/lists/* \
-    && pip install poetry
+    && pip install poetry==1.8.5
 
 ENV POETRY_NO_INTERACTION=1 \
     POETRY_VIRTUALENVS_IN_PROJECT=1 \
@@ -49,5 +49,8 @@ COPY --from=base \
     --chmod=0755 \
     --chown=$USERNAME:$USERNAME \
     ${VIRTUAL_ENV} ./.venv
+
+COPY --chmod=0755 \
+    pygeoapi-config.yml /home/pythonuser/pygeoapi-config.yaml
 
 # ENTRYPOINT [".venv/python", "-u"]

@@ -9,3 +9,4 @@
 !pyproject.toml
 !src
 !hello_geoworld.py
+!pygeoapi-config.yml
